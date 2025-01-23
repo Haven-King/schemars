@@ -55,6 +55,6 @@ mod tests {
             AtomicUsize,
         ));
         let basic_schema = schema_for!((bool, i8, i16, i32, i64, isize, u8, u16, u32, u64, usize));
-        assert_eq!(atomic_schema, basic_schema);
+        assert_eq!(atomic_schema.schema, basic_schema.schema);
     }
 }

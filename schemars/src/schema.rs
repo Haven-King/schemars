@@ -65,6 +65,29 @@ use serde_json::{Map, Value};
 #[repr(transparent)]
 pub struct Schema(Value);
 
+/// A JSON schema that is compile-time type checked.
+pub struct TypeReference<T: ?Sized> {
+    _marker: core::marker::PhantomData<*const T>,
+    /// The wrapped schema object.
+    pub schema: Schema,
+}
+
+impl<T> Into<Schema> for TypeReference<T> {
+    fn into(self) -> Schema {
+        self.schema
+    }
+}
+
+impl<T> TypeReference<T> {
+    /// Creates a new typed schema object.
+    pub fn new(schema: Schema) -> TypeReference<T> {
+        TypeReference {
+            _marker: core::marker::PhantomData,
+            schema: schema,
+        }
+    }
+}
+
 impl<'de> Deserialize<'de> for Schema {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

@@ -43,6 +43,7 @@ pub use schemars_derive::*;
 #[doc(inline)]
 pub use generate::SchemaGenerator;
 pub use schema::Schema;
+pub use schema::TypeReference;
 
 mod _alloc_prelude {
     pub use alloc::borrow::ToOwned;
